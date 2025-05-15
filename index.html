@@ -49,65 +49,9 @@
     .controls {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 30px;
-      background-color: rgba(30, 41, 59, 0.4);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    
-    .left-controls {
-      display: flex;
       align-items: center;
-    }
-    
-    .right-controls {
-      display: flex;
-      gap: 10px;
-    }
-    
-    .search-filter-container {
-      display: flex;
-      gap: 10px;
-      flex: 1;
-      justify-content: center;
-      margin: 0 20px;
-    }
-    
-    /* Search and filter inputs */
-    .search-container, .filter-container {
-      position: relative;
-      flex: 1;
-      max-width: 300px;
-    }
-    
-    .search-input, .filter-select {
-      width: 100%;
-      background-color: rgba(51, 65, 85, 0.7);
-      color: white;
-      border: 1px solid #475569;
-      border-radius: 8px;
-      padding: 12px 15px 12px 40px;
-      font-size: 1rem;
-      outline: none;
-    }
-    
-    .search-input::placeholder {
-      color: #94a3b8;
-    }
-    
-    .search-input:focus, .filter-select:focus {
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
-    }
-    
-    .search-icon, .filter-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #94a3b8;
-      font-size: 18px;
+      margin-bottom: 30px;
+      padding: 0;
     }
     
     /* Buttons */
@@ -119,40 +63,131 @@
       font-weight: 600;
       font-size: 1rem;
       transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
     }
     
-    .btn-primary {
+    .add-btn {
       background-color: #0ea5e9;
       color: white;
     }
     
-    .btn-primary:hover {
+    .add-btn:hover {
       background-color: #0284c7;
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
     
-    .btn-success {
+    .export-btn {
       background-color: #10b981;
       color: white;
     }
     
-    .btn-success:hover {
+    .export-btn:hover {
       background-color: #059669;
       transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
     
-    .btn-secondary {
+    .import-btn {
       background-color: #8b5cf6;
       color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     
-    .btn-secondary:hover {
+    .import-btn:hover {
       background-color: #7c3aed;
       transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Middle search and filter area */
+    .search-filter-container {
+      display: flex;
+      gap: 15px;
+      margin: 0;
+      flex-grow: 1;
+      max-width: 600px;
+      justify-content: center;
+      margin: 0 20px;
+    }
+    
+    /* Search input */
+    .search-container {
+      position: relative;
+      flex: 2;
+    }
+    
+    .search-input {
+      width: 100%;
+      background-color: rgba(51, 65, 85, 0.7);
+      color: white;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 12px 15px 12px 40px;
+      font-size: 1rem;
+    }
+    
+    .search-input::placeholder {
+      color: #94a3b8;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+    }
+    
+    /* Search icon positioning */
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    
+    /* Filter dropdown */
+    .filter-container {
+      position: relative;
+      flex: 1;
+    }
+    
+    .filter-select {
+      width: 100%;
+      background-color: rgba(51, 65, 85, 0.7);
+      color: white;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 12px 15px;
+      font-size: 1rem;
+      appearance: none;
+    }
+    
+    .filter-select:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+    }
+    
+    /* Custom dropdown arrow */
+    .select-arrow {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      pointer-events: none;
+      font-size: 1rem;
+    }
+    
+    /* Right controls area */
+    .right-controls {
+      display: flex;
+      gap: 10px;
     }
     
     /* Table styles */
@@ -425,6 +460,11 @@
       border-radius: 12px;
     }
     
+    /* Hide file input */
+    .file-input {
+      display: none;
+    }
+    
     /* Responsive adjustments */
     @media (max-width: 1024px) {
       .controls {
@@ -437,9 +477,9 @@
         width: 100%;
       }
       
-      .left-controls, .right-controls {
+      .right-controls {
         width: 100%;
-        justify-content: space-between;
+        justify-content: flex-end;
       }
     }
     
@@ -457,8 +497,13 @@
         flex-direction: column;
       }
       
-      .search-container, .filter-container {
-        max-width: none;
+      .right-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      button {
+        width: 100%;
       }
     }
   </style>
@@ -470,18 +515,15 @@
   </header>
   
   <div class="controls">
-    <div class="left-controls">
-      <button id="addBtn" class="btn-primary">+ Add New Application</button>
-    </div>
+    <button id="addBtn" class="add-btn">+ Add New Application</button>
     
     <div class="search-filter-container">
       <div class="search-container">
-        <span class="search-icon">🔍</span>
         <input type="text" id="searchInput" class="search-input" placeholder="Search Company or Role...">
+        <span class="search-icon">🔍</span>
       </div>
       
       <div class="filter-container">
-        <span class="filter-icon">🔢</span>
         <select id="statusFilter" class="filter-select">
           <option value="">All Statuses</option>
           <option value="Wishlist">Wishlist / To Apply</option>
@@ -495,16 +537,15 @@
           <option value="Rejected">Rejected</option>
           <option value="Withdrawn">Withdrawn</option>
         </select>
+        <span class="select-arrow">▼</span>
       </div>
     </div>
     
     <div class="right-controls">
-      <button id="exportBtn" class="btn-success">Export Data</button>
-      <button id="exportExcelBtn" class="btn-success">Export to Excel</button>
-      <label class="btn-secondary" style="cursor: pointer;">
-        Import Data
-        <input type="file" id="importBtn" style="display: none;" accept=".json">
-      </label>
+      <button id="exportBtn" class="export-btn">Export Data</button>
+      <button id="exportExcelBtn" class="export-btn">Export to Excel</button>
+      <button id="importBtn" class="import-btn">Import Data</button>
+      <input type="file" id="fileInput" class="file-input" accept=".json">
     </div>
   </div>
   
@@ -614,7 +655,7 @@
         
         <div class="form-footer">
           <button type="button" id="cancelBtn" class="btn-secondary">Cancel</button>
-          <button type="submit" class="btn-primary">Save Application</button>
+          <button type="submit" class="add-btn">Save Application</button>
         </div>
       </form>
     </div>
@@ -649,6 +690,7 @@
       const exportBtn = document.getElementById('exportBtn');
       const exportExcelBtn = document.getElementById('exportExcelBtn');
       const importBtn = document.getElementById('importBtn');
+      const fileInput = document.getElementById('fileInput');
       const applicationsList = document.getElementById('applicationsList');
       const emptyState = document.getElementById('emptyState');
       const noResults = document.getElementById('noResults');
@@ -699,7 +741,13 @@
       applicationForm.addEventListener('submit', saveApplication);
       exportBtn.addEventListener('click', exportData);
       exportExcelBtn.addEventListener('click', exportToExcel);
-      importBtn.addEventListener('change', importData);
+      
+      // Modified import handling with regular button
+      importBtn.addEventListener('click', function() {
+        fileInput.click();
+      });
+      
+      fileInput.addEventListener('change', importData);
       
       // Live search and filter
       searchInput.addEventListener('input', function() {

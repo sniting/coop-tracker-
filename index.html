@@ -11,11 +11,10 @@
   <title>Co-op Application Tracker</title>
   
   <!-- Load React, ReactDOM, and other dependencies via CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.22.5/babel.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.22.5/babel.min.js"></script>
+  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
   
   <style>
     /* Custom styles that may be needed beyond Tailwind */
@@ -65,6 +64,9 @@
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
+
+  <!-- Load Lucide icons from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
 
   <!-- Service Worker Registration -->
   <script>
@@ -381,7 +383,7 @@
           )}
 
           {/* Modal for Add/Edit/View */}
-          {(isModalOpen && (currentApplication || !currentApplication && !viewApplication || viewApplication)) && (
+          {isModalOpen && (
             <Modal onClose={handleCloseModal}>
               {viewApplication ? (
                 <ViewApplicationDetails application={viewApplication} onClose={handleCloseModal} />
@@ -650,9 +652,20 @@
     }
 
     // Render the App to the DOM
-    const rootElement = document.getElementById('root');
-    const root = ReactDOM.createRoot(rootElement);
-    root.render(<App />);
+    try {
+      const rootElement = document.getElementById('root');
+      const root = ReactDOM.createRoot(rootElement);
+      root.render(<App />);
+    } catch (error) {
+      console.error("Error rendering the app:", error);
+      document.getElementById('root').innerHTML = `
+        <div style="padding: 20px; text-align: center;">
+          <h2>Something went wrong</h2>
+          <p>Error: ${error.message}</p>
+          <p>Please check your browser console for more details.</p>
+        </div>
+      `;
+    }
   </script>
 </body>
 </html>
